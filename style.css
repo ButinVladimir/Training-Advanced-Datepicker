@@ -1,0 +1,109 @@
+.datepicker-window .datepicker-panel {
+    background-color: #FEFEFE;
+    border: 1px solid grey;
+    border-radius: 3px;   
+    padding: 3px;
+}
+
+.datepicker-window {
+    background-color: #EFEFEF;
+    display: none;
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 5px;
+    position: absolute;
+}
+
+.datepicker-window .datepicker-clear {
+    clear: both;
+}
+
+.datepicker-window .datepicker-calendar {
+    display: inline-block;
+    float: left;
+}
+
+.datepicker-window .datepicker-month-button {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: black;
+    padding: 0 0.3em 0 0.3em;
+    display: inline-block;
+    border: 1px solid transparent;
+}
+
+.datepicker-window .datepicker-month-button:hover {
+    background-color: #EFEFEF;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+.datepicker-window .datepicker-prev-month-button {
+    float: left;
+}
+
+.datepicker-window .datepicker-next-month-button {
+    float: right;
+}
+
+.datepicker-window .datepicker-month-caption {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+
+.datepicker-window .datepicker-calendar-start {
+    margin-right: 2px;
+}
+
+.datepicker-window .datepicker-calendar-finish {
+    margin-left: 2px;
+}
+
+.datepicker-window .datepicker-days-table {
+    width: 100%;
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.datepicker-window .datepicker-days-table td, .datepicker-window .datepicker-days-table th {
+    padding: 0;
+    border: 0;
+    text-align: center;
+}
+
+.datepicker-window .datepicker-days-table td a {
+    border: 1px solid transparent;
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 2px 6px 2px 6px;
+}
+
+.datepicker-window .datepicker-days-table td a.today {
+    background-color: #F4F47F;
+    color: black;
+}
+
+.datepicker-window .datepicker-days-table td a.marked {
+    background-color: #7FF47F;
+    color: black;
+}
+
+.datepicker-window .datepicker-days-table td a.selected {
+    background-color: #5F5FF0;
+    color: white;
+}
+
+.datepicker-window .datepicker-days-table td a:hover {
+    border: 1px solid grey;
+}
+
+.datepicker-window .datepicker-buttons {
+    margin-top: 6px;
+}
+
+.datepicker-window .datepicker-btn-clear {
+    margin-left: 10px;
+}
