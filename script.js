@@ -1,8 +1,23 @@
 $(function() {
     (function(window, document, localStorage) {
+        /**
+         * Hide time for warnings
+         */
         const HIDE_TIME = 2000;
+        
+        /**
+         * Months names
+         */
         const MONTHS_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        /**
+         * Key for local storage to store data
+         */
         const LOCAL_STORAGE_KEY = 'datepicker-plugin';
+        
+        /**
+         * Window template
+         */
         const TEMPLATE = `
 <div class="datepicker-range">
 
@@ -98,6 +113,10 @@ $(function() {
     <button class="datepicker-btn-clear">Clear</button>
 </div>
         `;
+        
+        /**
+         * Date range type template
+         */
         const TYPE_TEMPLATE = `
 <div class="datepicker-type">
     <label>
@@ -110,6 +129,13 @@ $(function() {
          * Date range type class
          */
         class DatepickerRangeType {
+            /**
+             * Constructor
+             *
+             * @param {String} value
+             * @param {String} classString
+             * @param {String} description
+             */
             constructor(value, classString, description) {
                 this._value = value;
                 this._class = classString;
@@ -182,6 +208,9 @@ $(function() {
                 this._start = start;
                 this._finish = finish;
 
+                this._start.setHours(0, 0, 0, 0);
+                this._finish.setHours(0, 0, 0, 0);
+
                 this.setType(type);
             }
 
@@ -210,14 +239,8 @@ $(function() {
                     throw new Error('range must be instance of DatepickerRange');
                 }
 
-                this._start.setHours(0, 0, 0, 0);
-                this._finish.setHours(0, 0, 0, 0);
-
                 let left = this._start.getTime();
                 let right = this._finish.getTime();
-
-                range.getStart().setHours(0, 0, 0, 0);
-                range.getFinish().setHours(0, 0, 0, 0);
 
                 left = Math.max(left, range.getStart().getTime());
                 right = Math.min(right, range.getFinish().getTime());
@@ -229,6 +252,7 @@ $(function() {
 
         /**
          * Date range storage class
+         * Stores all data in localstorage
          */
         class DatepickerRangeStorage {
             constructor(typeStorage) {
@@ -252,7 +276,7 @@ $(function() {
 
             add(datepickerRange) {
                 if (!datepickerRange instanceof DatepickerRange) {
-                    throw new Error('DatepickerRange must be instance of DatepickerRange');
+                    throw new Error('datepickerRange must be instance of DatepickerRange');
                 }
                 this._dates.push(datepickerRange);
                 this._save();
@@ -279,6 +303,15 @@ $(function() {
          * Class for handling calendar
          */
         class DatepickerCalendar {
+
+            /**
+             * Constructor
+             *
+             * @param {DatepickerRangeStorage} rangeStorage - It is used for displaying added ranges
+             * @param {DatepickerRangeTypeStorage} typeStorage - It is used for retrieving types classes
+             * @param {DatepickerRange} selectedRange - Instance of selected range from datepicker
+             * @param {Object} $calendarBlock - jQuery object of block with calendar
+             */
             constructor(rangeStorage, typeStorage, selectedRange, $calendarBlock) {
                 if (!rangeStorage instanceof DatepickerRangeStorage) {
                     throw new Error('rangeStorage must be instance of DatepickerRangeStorage');
@@ -311,6 +344,9 @@ $(function() {
                 this._changeCallback = null;
             }
 
+            /**
+             * Render caption and days table
+             */
             render() {
                 this._$caption.html(MONTHS_NAMES[this._month] + " " + this._year);
                 this._$days.empty();
@@ -345,6 +381,9 @@ $(function() {
                 }
             }
 
+            /**
+             * Register user handles
+             */
             registerHandlers() {
                 let self = this;
 
@@ -377,6 +416,11 @@ $(function() {
                 });
             }
 
+            /**
+             * Allows calling function after day has been selected
+             *
+             * @param {Function} fn
+             */
             setChangeCallback(fn) {
                 if (!fn instanceof Function) {
                     throw new Error('type change callback must be instance of Function');
@@ -385,32 +429,59 @@ $(function() {
                 this._changeCallback = fn;
             }
 
+            /**
+             * Render empty single day cell
+             *
+             * @return {Object}
+             */
             _renderEmptyDayCell() {
                 return $('<td></td>');
             }
 
+            /**
+             * Is rendering day is today
+             *
+             * @param day Number
+             * @return {Boolean}
+             */
             _isToday(day) {
                 return  this._year === this._todayYear
                 && this._month === this._todayMonth
                 && day === this._todayDay;
             }
 
+            /**
+             * Is rendering day is in range
+             *
+             * @param {Number} day
+             * @param {DatepickerRange} range
+             * @return {Boolean}
+             */
             _isInRange(day, range) {
                 let date = new Date(this._year, this._month, day);
-                range.getStart().setHours(0, 0, 0, 0);
-                range.getFinish().setHours(0, 0, 0, 0);
 
                 return date.getTime() >= range.getStart().getTime() && date.getTime() <= range.getFinish().getTime();
             }
 
+            /**
+             * Is rendering day is the point of range
+             *
+             * @param {Number} day
+             * @param {DatepickerRange} range
+             * @return {Boolean}
+             */
             _isMarked(day, range) {
                 let date = new Date(this._year, this._month, day);
-                range.getStart().setHours(0, 0, 0, 0);
-                range.getFinish().setHours(0, 0, 0, 0);
 
                 return date.getTime() === range.getStart().getTime() || date.getTime() === range.getFinish().getTime();
             }
 
+            /**
+             * Render single day cell
+             *
+             * @param {Number} day
+             * @return {Object}
+             */
             _renderDayCell(day) {
                 let $cell = $('<td>');
                 let $link = $('<a>' , {href: '#', 'data-day': day, text: day});
@@ -443,6 +514,13 @@ $(function() {
           * Date picker main class
           */
         class Datepicker {
+
+            /**
+             * Constructor
+             *
+             * @param {DatepickerRangeStorage} rangeStorage
+             * @param {DatepickerRangeTypeStorage} typeStorage
+             */            
             constructor(rangeStorage, typeStorage) {
                 if (!rangeStorage instanceof DatepickerRangeStorage) {
                     throw new Error('rangeStorage must be instance of DatepickerRangeStorage');
@@ -472,6 +550,12 @@ $(function() {
                 this._selectedRange = new DatepickerRange(new Date(), new Date(), this._typeStorage.getFirst());
             }
 
+            /**
+             * Display window
+             *
+             * @param {number} posX
+             * @param {number} posY
+             */
             showWindow(posX, posY) {
                 if (this._$window === null) {
                     this._renderWindow();
@@ -483,12 +567,18 @@ $(function() {
                 this._$window.show();
             }
 
+            /**
+             * Hide window
+             */
             hideWindow() {
                 if (this._$window !== null) {
                     this._$window.hide();
                 }
             }
 
+            /**
+             * Render window
+             */
             _renderWindow() {
                 this._$window = $('<div class="datepicker-window"></div>');
                 this._$window.html(TEMPLATE);
@@ -510,6 +600,9 @@ $(function() {
                 $('body').append(this._$window);
             }
 
+            /**
+             * Render types selection
+             */
             _renderTypes() {
                 this._$typesBlock = this._$window.find('.datepicker-options');
                 this._typeStorage.iterate(type => {
@@ -526,6 +619,9 @@ $(function() {
                 });
             }
 
+            /**
+             * Render calendars and intersection warning
+             */
             _renderCalendars() {
                 this._startCalendar.render();
                 this._finishCalendar.render();
@@ -533,6 +629,9 @@ $(function() {
                 this._$intersect.toggle(this._isSelectedRangeIntersect());
             }
 
+            /**
+             * Register handlers
+             */
             _registerHandlers() {
                 let self = this;
 
@@ -552,8 +651,6 @@ $(function() {
                 });
 
                 this._$addBtn.click(e => {
-                    this._selectedRange.getStart().setHours(0, 0, 0, 0);
-                    this._selectedRange.getFinish().setHours(0, 0, 0, 0);
                     if (this._selectedRange.getStart().getTime() > this._selectedRange.getFinish().getTime()) {
                         return;
                     }
@@ -586,6 +683,11 @@ $(function() {
                 });
             }
 
+            /**
+             * Is selected range intersecting added ranges
+             *
+             * @return {boolean}
+             */
             _isSelectedRangeIntersect() {
                 let isIntersect = false;
 
@@ -602,6 +704,7 @@ $(function() {
 
         /**
          * Date range type storage instance
+         * @var {DatepickerRangeTypeStorage}
          */
         let datepickerRangeTypeStorage = new DatepickerRangeTypeStorage();
         [
@@ -612,14 +715,19 @@ $(function() {
 
         /**
          * Date range storage instance
+         * @var {DatepickerRangeStorage}
          */
         let datepickerRangeStorage = null;
 
         /**
          * Datepicker instance
+         * @var {Datepicker}
          */
         let datepicker = null;
 
+        /*
+         * Plugin
+         */
         $.fn.datepicker = function() {
             if (datepickerRangeStorage === null) {
                 datepickerRangeStorage = new DatepickerRangeStorage(datepickerRangeTypeStorage);
@@ -638,7 +746,9 @@ $(function() {
         };
     })(window, document, localStorage);
 
-
+    /*
+     * Usage
+     */
     $('#target').datepicker().click(function(e) {
         e.stopPropagation();
 
