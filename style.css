@@ -87,7 +87,22 @@
 }
 
 .datepicker-window .datepicker-days-table td a.marked {
-    background-color: #7FF47F;
+    background-color: #F47F7F;
+    color: black;
+}
+
+.datepicker-window .datepicker-days-table td a.range-1 {
+    background-color: #FF3333;
+    color: black;
+}
+
+.datepicker-window .datepicker-days-table td a.range-2 {
+    background-color: #33FF33;
+    color: black;
+}
+
+.datepicker-window .datepicker-days-table td a.range-3 {
+    background-color: #3333FF;
     color: black;
 }
 
@@ -106,4 +121,26 @@
 
 .datepicker-window .datepicker-btn-clear {
     margin-left: 10px;
+}
+
+.datepicker-window .datepicker-options, .datepicker-window .datepicker-warnings {
+    margin-top: 5px;
+}
+
+.datepicker-window .datepicker-warning {
+    display: none;
+    padding: 3px;
+    font-size: 1.2em;
+}
+
+.datepicker-window .datepicker-success {
+    color: darkgreen;
+}
+
+.datepicker-window .datepicker-cleared {
+    color: darkred;
+}
+
+.datepicker-window .datepicker-intersect {
+    color: darkorange;
 }
