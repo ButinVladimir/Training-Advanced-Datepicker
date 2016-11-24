@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Advanced datepicker test</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <button id="target">Click</button>
+
+        <div id="template">
+            <div class="datepicker-range">
+
+                <div class="datepicker-calendar datepicker-calendar-start">
+                    <div class="datepicker-calendar-inner datepicker-panel">
+                        <div class="datepicker-calendar-header">
+                            <a href="#" class="datepicker-month-button datepicker-prev-month-button">
+                                <span class="datepicker-month-button-text">&#8678</span>
+                            </a>
+                            <a href="#" class="datepicker-month-button datepicker-next-month-button">
+                                <span class="datepicker-month-button-text">&#8680</span>
+                            </a>
+                            <div class="datepicker-month-caption">
+                                2016
+                            </div>
+                        </div>
+
+                        <div class="datepicker-calendar-days">
+                            <table class="datepicker-days-table">
+                                <thead>
+                                    <tr>
+                                        <th>Su</th>
+                                        <th>Mo</th>
+                                        <th>Tu</th>
+                                        <th>We</th>
+                                        <th>Th</th>
+                                        <th>Fr</th>
+                                        <th>Sa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="datepicker-calendar datepicker-calendar-finish">
+                    <div class="datepicker-calendar-inner datepicker-panel">
+                        <div class="datepicker-calendar-header">
+                            <a href="#" class="datepicker-month-button datepicker-prev-month-button">
+                                <span class="datepicker-month-button-text">&#8678</span>
+                            </a>
+                            <a href="#" class="datepicker-month-button datepicker-next-month-button">
+                                <span class="datepicker-month-button-text">&#8680</span>
+                            </a>
+                            <div class="datepicker-month-caption">
+                                2016
+                            </div>
+                        </div>
+
+                        <div class="datepicker-calendar-days">
+                            <table class="datepicker-days-table">
+                                <thead>
+                                    <tr>
+                                        <th>Su</th>
+                                        <th>Mo</th>
+                                        <th>Tu</th>
+                                        <th>We</th>
+                                        <th>Th</th>
+                                        <th>Fr</th>
+                                        <th>Ss</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="datepicker-clear"></div>
+
+            </div>
+
+            <div class="datepicker-warnings datepicker-panel">
+                <div class="datepicker-warning datepicker-cleared">Dates have been deleted!</div>
+                <div class="datepicker-warning datepicker-success">Date range has been added!</div>
+                <div class="datepicker-warning datepicker-intersect">Selected date range is intersecting with added ranges!</div>
+                <div class="datepicker-override">
+                    <label>
+                        <input type="checkbox" name="datepicker_override">
+                        <span>Allow adding intersecting ranges</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="datepicker-options datepicker-panel">
+            </div>
+
+            <div class="datepicker-buttons">
+                <button class="datepicker-btn-add">Add</button>
+                <button class="datepicker-btn-clear">Clear</button>
+            </div>
+        </div>
+
+        <div id="type-template">
+            <div class="datepicker-type">
+                <label>
+                    <input type="radio" name="datepicker_type"> <span class="datepicker-type-text"></span>
+                </label>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>
